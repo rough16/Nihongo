@@ -1,6 +1,12 @@
 # Nihongo
 For JapanesePreparation
+
 <img width="696" height="447" alt="image" src="https://github.com/user-attachments/assets/666a7084-caa6-4a78-9e3f-df1a7eea4797" />
+
+
+
+<img width="789" height="479" alt="image" src="https://github.com/user-attachments/assets/c9255749-bdf9-4288-b974-da666f9ee9e2" />
+
 
 cpp
 // Observer Pattern
