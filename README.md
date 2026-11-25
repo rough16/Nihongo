@@ -1,6 +1,405 @@
 # Nihongo
 For JapanesePreparation
 
+1. Singleton Pattern
+
+Ensures only one instance of a class exists.
+text
+
+       Singleton
+    ----------------
+    - instance
+    ----------------
+    + getInstance()
+    + operation()
+          |
+          |
+     Single Object
+
+2. Factory Method Pattern
+
+Creates one product through a factory method.
+text
+
+           IProduct
+              |
+       ---------------
+       |             |
+    Product1      Product2
+
+
+           IFactory
+              |
+       ---------------
+       |             |
+    Factory1      Factory2
+       |             |
+       v             v
+    Product1      Product2
+
+3. Abstract Factory Pattern
+
+Creates families of related products.
+text
+
+                IFactory
+                   |
+           -----------------
+           |               |
+        Factory1        Factory2
+           |               |
+       ----------      ----------
+       |        |      |        |
+    ProductA1 ProductB1 ProductA2 ProductB2
+
+
+       IProductA       IProductB
+           |               |
+       ----------      ----------
+       |        |      |        |
+      PA1      PA2    PB1      PB2
+
+4. Builder Pattern
+
+Separates the construction of a complex object from its representation.
+text
+
+             Director
+                |
+                v
+           IBuilder
+                |
+          -------------
+          |           |
+       Builder1    Builder2
+          |           |
+          v           v
+        Product     Product
+
+5. Prototype Pattern
+
+Creates new objects by cloning existing objects.
+text
+
+          IPrototype
+               |
+        ----------------
+        |              |
+    Prototype1     Prototype2
+        |              |
+        | clone()      | clone()
+        v              v
+      Object         Object
+
+2. Structural Design Patterns
+6. Adapter Pattern
+
+Allows incompatible interfaces to work together.
+text
+
+          Client
+             |
+             v
+        ITarget
+             |
+             v
+         Adapter
+             |
+             v
+        Adaptee
+
+7. Bridge Pattern
+
+Separates abstraction from implementation.
+text
+
+        Abstraction
+             |
+             | has-a
+             v
+        IImplementor
+             |
+       --------------
+       |            |
+   Impl1          Impl2
+
+8. Composite Pattern
+
+Treats individual objects and groups of objects uniformly.
+text
+
+          Component
+              |
+       ----------------
+       |              |
+      Leaf        Composite
+                       |
+                       |
+                  Components
+                       |
+                 -------------
+                 |           |
+                Leaf        Leaf
+
+9. Decorator Pattern
+
+Adds additional responsibilities dynamically.
+text
+
+          Component
+              |
+       ----------------
+       |              |
+    Concrete       Decorator
+    Component          |
+                       |
+                  Component
+                       |
+                 ConcreteDecorator
+
+10. Facade Pattern
+
+Provides a simplified interface to a complex subsystem.
+text
+
+          Client
+             |
+             v
+           Facade
+             |
+      -----------------
+      |       |       |
+   System1 System2 System3
+
+11. Proxy Pattern
+
+Provides a substitute or placeholder for another object.
+text
+
+           ISubject
+               |
+        ----------------
+        |              |
+       Proxy       RealSubject
+        |
+        | has-a
+        v
+    RealSubject
+
+12. Flyweight Pattern
+
+Shares common object state to reduce memory consumption.
+text
+
+            Client
+               |
+               v
+         FlyweightFactory
+               |
+               v
+          IFlyweight
+               |
+        ----------------
+        |              |
+    Flyweight1     Flyweight2
+
+3. Behavioral Design Patterns
+13. Observer Pattern
+
+One-to-many relationship between publisher and subscribers.
+text
+
+          IPublisher
+               |
+               v
+           Publisher
+               |
+        Subscriber List
+               |
+       -----------------
+       |       |       |
+      Sub1    Sub2    Sub3
+       |       |       |
+       v       v       v
+   notification()
+
+14. Strategy Pattern
+
+Encapsulates interchangeable algorithms.
+text
+
+           Context
+              |
+              | has-a
+              v
+          IStrategy
+              |
+       ----------------
+       |              |
+    Strategy1      Strategy2
+
+15. State Pattern
+
+Changes object behavior based on its internal state.
+text
+
+            Context
+               |
+               | has-a
+               v
+            IState
+               |
+        ----------------
+        |              |
+      State1         State2
+
+16. Command Pattern
+
+Encapsulates a request as an object.
+text
+
+          Client
+             |
+             v
+         ICommand
+             |
+       --------------
+       |            |
+   Command1      Command2
+       |            |
+       v            v
+    Receiver     Receiver
+
+17. Template Method Pattern
+
+Defines the skeleton of an algorithm in a base class.
+text
+
+          AbstractClass
+                |
+         templateMethod()
+                |
+         ----------------
+         |              |
+      Class1           Class2
+         |              |
+     step1()         step1()
+     step2()         step2()
+
+18. Chain of Responsibility Pattern
+
+Passes a request through a chain of handlers.
+text
+
+       Client
+          |
+          v
+       Handler1
+          |
+          v
+       Handler2
+          |
+          v
+       Handler3
+
+19. Iterator Pattern
+
+Provides sequential access to elements without exposing the underlying representation.
+text
+
+          IIterator
+              |
+       ----------------
+       |              |
+    Iterator1     Iterator2
+
+
+          Aggregate
+              |
+       ----------------
+       |              |
+    Collection1   Collection2
+
+20. Mediator Pattern
+
+Centralizes communication between objects.
+text
+
+          IMediator
+              |
+           Mediator
+          /   |   \
+         /    |    \
+      Obj1   Obj2   Obj3
+
+21. Memento Pattern
+
+Captures and restores an object's previous state.
+text
+
+          Originator
+              |
+              v
+           Memento
+              ^
+              |
+          Caretaker
+
+22. Visitor Pattern
+
+Separates operations from the objects on which they operate.
+text
+
+           IVisitor
+               |
+        ----------------
+        |              |
+     Visitor1       Visitor2
+
+
+          IElement
+              |
+        ----------------
+        |              |
+     Element1       Element2
+
+23. Interpreter Pattern
+
+Defines a grammar and provides an interpreter for expressions.
+text
+
+       AbstractExpression
+                |
+         ----------------
+         |              |
+    TerminalExpr   NonTerminalExpr
+
+Category	Design Pattern	Main Purpose
+Creational	Singleton	Single instance
+Creational	Factory Method	Create products
+Creational	Abstract Factory	Create product families
+Creational	Builder	Build complex objects
+Creational	Prototype	Clone objects
+Structural	Adapter	Interface compatibility
+Structural	Bridge	Separate abstraction and implementation
+Structural	Composite	Tree structures
+Structural	Decorator	Add responsibilities
+Structural	Facade	Simplify subsystem
+Structural	Proxy	Control object access
+Structural	Flyweight	Share objects
+Behavioral	Observer	Notify subscribers
+Behavioral	Strategy	Interchange algorithms
+Behavioral	State	State-dependent behavior
+Behavioral	Command	Encapsulate requests
+Behavioral	Template Method	Algorithm skeleton
+Behavioral	Chain of Responsibility	Pass requests through handlers
+Behavioral	Iterator	Traverse collections
+Behavioral	Mediator	Centralize communication
+Behavioral	Memento	Restore previous state
+Behavioral	Visitor	Separate operations
+Behavioral	Interpreter	Interpret grammar
+
+
 <img width="696" height="447" alt="image" src="https://github.com/user-attachments/assets/666a7084-caa6-4a78-9e3f-df1a7eea4797" />
 
 
