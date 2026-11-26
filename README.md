@@ -1,6 +1,981 @@
 # Nihongo
 For JapanesePreparation
 
+Dynamic Programming (DP) — Complete Study Handbook
+1. Introduction: What is Dynamic Programming?
+
+Dynamic Programming is a problem-solving technique where we:
+
+Break a bigger problem into smaller subproblems.
+Solve those subproblems.
+Store their answers.
+Reuse stored answers instead of calculating them repeatedly.
+Two important properties
+
+1. Overlapping Subproblems
+
+The same smaller problem gets calculated multiple times.
+
+2. Optimal Substructure
+
+The solution to a bigger problem can be constructed using solutions to smaller problems.
+
+Three ways to implement DP
+Approach	Explanation
+Recursion	Break the problem into smaller problems
+Memoization	Recursion + storing calculated answers
+Tabulation	Iteratively calculate smaller states first
+2. The 15 Fundamental DP Patterns
+Pattern 1: Fibonacci / 1D DP
+Core concept
+
+The current answer depends on previously calculated answers.
+
+Example: Fibonacci.
+
+text
+0, 1, 1, 2, 3, 5, 8, 13...
+
+
+Recurrence:
+
+cpp
+dp[i] = dp[i-1] + dp[i-2];
+
+DP state
+cpp
+dp[i]
+
+
+Meaning: Answer to the problem at position i.
+
+Variations
+Fibonacci Number
+Climbing Stairs
+Min Cost Climbing Stairs
+House Robber
+House Robber II
+Decode Ways
+Maximum Sum of Non-Adjacent Elements
+Jump Game
+How to recognize it
+
+Look for:
+
+Current position depends on previous positions.
+You can reach a position through different previous states.
+You need maximum, minimum, or number of ways.
+Pattern 2: 0/1 Knapsack
+Core concept
+
+Every item has two choices:
+
+Include the item.
+Exclude the item.
+
+Each item can be selected at most once.
+
+DP state
+cpp
+dp[i][w]
+
+
+Meaning: Maximum value obtainable using the first i items with capacity w.
+
+Recurrence
+
+If the item fits:
+
+cpp
+dp[i][w] = max(
+    value[i] + dp[i-1][w-weight[i]],
+    dp[i-1][w]
+);
+
+
+If it doesn't fit:
+
+cpp
+dp[i][w] = dp[i-1][w];
+
+Variations
+0/1 Knapsack
+Subset Sum
+Equal Sum Partition
+Count Subsets with Given Sum
+Minimum Subset Sum Difference
+Target Sum
+Count Partitions with Given Difference
+How to recognize it
+
+Look for:
+
+Array of items.
+Each element can be selected or skipped.
+A capacity or target sum.
+Maximum value, minimum difference, counting, or possibility.
+Important observation
+
+Several problems use the same include/exclude structure but change the operation:
+
+Problem	Operation
+Knapsack	Maximum
+Subset Sum	Boolean OR
+Count Subsets	Addition
+Minimum Difference	Minimum
+Pattern 3: Unbounded Knapsack
+Core concept
+
+You can select an item multiple times.
+
+Unlike 0/1 Knapsack, selecting an item doesn't remove it from future consideration.
+
+DP state
+cpp
+dp[i][w]
+
+
+Meaning: Best answer using the first i item types with capacity w.
+
+Recurrence
+cpp
+dp[i][w] = max(
+    value[i] + dp[i][w-weight[i]],
+    dp[i-1][w]
+);
+
+
+Notice:
+
+cpp
+dp[i][w-weight[i]]
+
+
+We use i, not i-1, because the same item can be selected again.
+
+Variations
+Unbounded Knapsack
+Coin Change
+Minimum Number of Coins
+Rod Cutting
+Maximum Ribbon Cut
+Integer Break
+How to recognize it
+
+Look for:
+
+Unlimited availability of each item.
+Repeated selection allowed.
+Target amount or capacity.
+Maximum profit, minimum coins, or counting combinations.
+Pattern 4: Subset Sum Family
+
+This is closely related to 0/1 Knapsack.
+
+Core concept
+
+Determine whether a subset of elements can form a particular sum.
+
+Example:
+
+text
+arr = {1,2,3,4,5}
+target = 5
+
+
+Possible subsets:
+
+text
+{5}
+{1,4}
+{2,3}
+
+DP state
+cpp
+dp[i][sum]
+
+
+Meaning: Can we achieve sum using the first i elements?
+
+Recurrence
+cpp
+dp[i][sum] =
+    dp[i-1][sum] ||
+    dp[i-1][sum-arr[i]];
+
+
+The include choice is valid only if:
+
+cpp
+arr[i] <= sum
+
+Variations
+Subset Sum
+Equal Sum Partition
+Count Subsets
+Minimum Subset Sum Difference
+Target Sum
+Count Partitions with Given Difference
+How to recognize it
+
+Look for:
+
+Selecting some elements.
+Target sum.
+Partitioning an array.
+Counting combinations of elements.
+Pattern 5: Grid DP
+Core concept
+
+Calculate the answer for each cell using neighboring cells.
+
+Example:
+
+text
+S  0  0
+0  0  0
+0  0  E
+
+
+Find the number of ways to reach the destination.
+
+DP state
+cpp
+dp[i][j]
+
+
+Meaning: Number of ways or minimum cost to reach cell (i,j).
+
+Example recurrence
+
+For movement only right and down:
+
+cpp
+dp[i][j] = dp[i-1][j] + dp[i][j-1];
+
+
+For minimum path sum:
+
+cpp
+dp[i][j] = grid[i][j] +
+           min(dp[i-1][j], dp[i][j-1]);
+
+Variations
+Unique Paths
+Unique Paths II
+Minimum Path Sum
+Maximum Path Sum
+Triangle
+Cherry Pickup
+Dungeon Game
+Falling Path Sum
+How to recognize it
+
+Look for:
+
+Matrix or grid.
+Starting cell and destination.
+Movement restrictions.
+Number of paths or minimum/maximum cost.
+Pattern 6: Longest Common Subsequence (LCS)
+Core concept
+
+Compare two sequences and find the longest subsequence common to both.
+
+A subsequence maintains relative order but doesn't need to be continuous.
+
+Example:
+
+text
+A = ABCDGH
+B = AEDFHR
+
+
+Common subsequence:
+
+text
+ADH
+
+DP state
+cpp
+dp[i][j]
+
+
+Meaning: LCS length using the first i characters of A and first j characters of B.
+
+Recurrence
+
+If characters match:
+
+cpp
+dp[i][j] = 1 + dp[i-1][j-1];
+
+
+Otherwise:
+
+cpp
+dp[i][j] = max(
+    dp[i-1][j],
+    dp[i][j-1]
+);
+
+Variations
+Longest Common Subsequence
+Longest Common Substring
+Shortest Common Supersequence
+Minimum Insertions and Deletions
+Longest Palindromic Subsequence
+Print LCS
+Sequence Pattern Matching
+How to recognize it
+
+Look for:
+
+Two strings or sequences.
+Common subsequence.
+Matching characters.
+Insertion/deletion transformations.
+Pattern 7: Longest Increasing Subsequence (LIS)
+Core concept
+
+Find the longest subsequence in which elements are strictly increasing.
+
+Example:
+
+text
+arr = {10,9,2,5,3,7,101,18}
+
+
+One LIS:
+
+text
+2,3,7,18
+
+
+Length = 4.
+
+DP state
+cpp
+dp[i]
+
+
+Meaning: Length of the longest increasing subsequence ending at index i.
+
+Recurrence
+cpp
+if(arr[i] > arr[j])
+{
+    dp[i] = max(dp[i], dp[j] + 1);
+}
+
+
+Where j < i.
+
+Variations
+Longest Increasing Subsequence
+Maximum Sum Increasing Subsequence
+Longest Bitonic Subsequence
+Number of LIS
+Largest Divisible Subset
+Longest String Chain
+Russian Doll Envelopes
+How to recognize it
+
+Look for:
+
+Increasing or decreasing sequences.
+Selecting elements while preserving order.
+Longest or maximum-sum subsequence.
+Pattern 8: Matrix Chain Multiplication / Interval DP
+Core concept
+
+Divide a range into smaller ranges and find the optimal way to combine them.
+
+Example:
+
+text
+A1 x A2 x A3 x A4
+
+
+Matrix multiplication order affects the total number of operations.
+
+We want the minimum cost.
+
+DP state
+cpp
+dp[i][j]
+
+
+Meaning: Minimum cost to solve the range from i to j.
+
+Recurrence
+
+Try every possible partition point k:
+
+cpp
+for(int k = i; k < j; k++)
+{
+    // Calculate left cost
+    // Calculate right cost
+    // Calculate combining cost
+}
+
+
+General structure:
+
+cpp
+dp[i][j] = min(
+    dp[i][k] +
+    dp[k+1][j] +
+    cost(i,k,j)
+);
+
+Variations
+Matrix Chain Multiplication
+Palindrome Partitioning
+Burst Balloons
+Minimum Cost to Cut a Stick
+Boolean Parenthesization
+Strange Printer
+How to recognize it
+
+Look for:
+
+Dividing arrays or strings into ranges.
+Trying every possible partition.
+Minimum or maximum cost of combining intervals.
+Pattern 9: String DP
+Core concept
+
+Solve string transformation or matching problems using smaller string states.
+
+DP state
+
+Often:
+
+cpp
+dp[i][j]
+
+
+Meaning: Answer for the first i characters of one string and first j characters of another.
+
+Variations
+Edit Distance
+Wildcard Matching
+Regular Expression Matching
+Distinct Subsequences
+Interleaving String
+Minimum Insertions to Make Palindrome
+Palindrome Partitioning
+Example: Edit Distance
+
+Operations:
+
+Insert
+Delete
+Replace
+
+If characters match:
+
+cpp
+dp[i][j] = dp[i-1][j-1];
+
+
+Otherwise:
+
+cpp
+dp[i][j] = 1 + min({
+    dp[i-1][j],
+    dp[i][j-1],
+    dp[i-1][j-1]
+});
+
+How to recognize it
+
+Look for:
+
+String transformations.
+Matching patterns.
+Insertions, deletions, replacements.
+Subsequence or substring relationships.
+Pattern 10: Tree DP
+Core concept
+
+Calculate the answer for a node using answers from its children.
+
+Example:
+
+text
+        10
+       /  \
+      5    20
+     / \
+    2   8
+
+
+The answer at a parent may depend on its left and right child answers.
+
+DP state
+
+Often:
+
+cpp
+dp[node]
+
+
+Or multiple states:
+
+cpp
+dp[node][0]
+dp[node][1]
+
+Variations
+Diameter of Binary Tree
+Maximum Path Sum
+House Robber III
+Maximum Independent Set
+Tree Matching
+Minimum Vertex Cover on Trees
+How to recognize it
+
+Look for:
+
+Tree structure.
+Parent-child relationships.
+Maximum or minimum values over subtrees.
+Choosing or skipping nodes.
+Pattern 11: Graph DP / DAG DP
+Core concept
+
+Calculate answers along graph edges.
+
+For a Directed Acyclic Graph (DAG), process nodes in topological order.
+
+DP state
+cpp
+dp[node]
+
+
+Meaning: Best answer reaching or starting from a particular node.
+
+Example recurrence
+
+For longest path in a DAG:
+
+cpp
+dp[v] = max(dp[v], dp[u] + 1);
+
+
+For every edge:
+
+text
+u -> v
+
+Variations
+Longest Path in DAG
+Shortest Path in DAG
+Number of Paths in DAG
+Maximum Path Weight
+Cheapest Flights Within K Stops
+How to recognize it
+
+Look for:
+
+Directed acyclic graphs.
+Paths with maximum or minimum cost.
+Number of ways to reach nodes.
+Dependencies between nodes.
+
+Note: General graphs can contain cycles, so ordinary DAG DP cannot be applied directly.
+
+Pattern 12: State Machine DP
+Core concept
+
+The answer depends on the current state of the system.
+
+Example: Stock Buy and Sell.
+
+Possible states:
+
+text
+BUY
+SELL
+HOLD
+COOLDOWN
+
+
+The allowed transitions depend on the current state.
+
+DP state
+cpp
+dp[day][state]
+
+
+Meaning: Maximum profit on a particular day while being in a particular state.
+
+Variations
+Best Time to Buy and Sell Stock
+Stock Buy and Sell II
+Stock Buy and Sell III
+Stock with Transaction Fee
+Stock with Cooldown
+Maximum Profit with K Transactions
+How to recognize it
+
+Look for:
+
+Actions that change what you can do next.
+Buy/sell/hold decisions.
+Cooldown restrictions.
+Limited number of operations.
+Different modes or states.
+Pattern 13: Bitmask DP
+Core concept
+
+Represent a subset of elements using binary bits.
+
+Example:
+
+For four elements:
+
+text
+0000 = No elements selected
+0001 = Element 0 selected
+0011 = Elements 0 and 1 selected
+1111 = All elements selected
+
+DP state
+cpp
+dp[mask]
+
+
+Or:
+
+cpp
+dp[mask][i]
+
+
+Meaning: Answer for a particular selected subset, sometimes ending at element i.
+
+Variations
+Traveling Salesman Problem
+Assignment Problem
+Minimum Cost to Visit All Cities
+Shortest Superstring
+Minimum Team Selection
+How to recognize it
+
+Look for:
+
+A relatively small number of elements.
+Selecting subsets.
+Visiting each element once.
+Assignment or permutation optimization.
+Pattern 14: Digit DP
+Core concept
+
+Count numbers satisfying specific digit-related constraints.
+
+Example:
+
+How many numbers between 1 and 1000 have no repeated digits?
+
+Instead of checking every number, construct numbers digit by digit and remember relevant states.
+
+DP state
+
+Common state parameters include:
+
+cpp
+dp[position][tight][started][mask]
+
+
+Meaning:
+
+position: Current digit position.
+tight: Whether we are restricted by the upper bound.
+started: Whether a non-leading-zero digit has been selected.
+mask: Which digits have already been used.
+Variations
+Count Numbers with Unique Digits
+Count Numbers Without Consecutive Ones
+Count Numbers with a Given Digit Sum
+Count Numbers Containing Specific Digits
+Count Numbers Divisible by K
+How to recognize it
+
+Look for:
+
+Count numbers in a range.
+Digit restrictions.
+Digit sums.
+Repeated or forbidden digits.
+Pattern 15: DP Optimization
+Core concept
+
+Sometimes a normal DP recurrence is too slow.
+
+We optimize the transition calculation without changing the fundamental DP idea.
+
+Important techniques
+Divide and Conquer DP Optimization
+Convex Hull Trick
+Monotonic Queue Optimization
+Knuth Optimization
+Space Optimization
+Prefix Sum Optimization
+Example
+
+A straightforward DP might require:
+
+text
+O(N²)
+
+
+An optimized transition may reduce it to:
+
+text
+O(N log N)
+
+Variations
+Optimized Partition DP
+Convex Hull Trick DP
+Knuth Optimization Problems
+Sliding Window DP
+Space-Optimized Knapsack
+How to recognize it
+
+Look for:
+
+DP with large input constraints.
+Nested loops that are too slow.
+Repeated transition calculations.
+Monotonicity or mathematical properties that allow optimization.
+3. DP Pattern Recognition Cheat Sheet
+
+When reading an unfamiliar problem, use this table.
+
+Problem description	Pattern to investigate
+Current answer depends on previous positions	1D DP
+Select or skip each element	0/1 Knapsack
+Select elements multiple times	Unbounded Knapsack
+Form a target sum	Subset Sum
+Divide an array into two subsets	Subset Sum
+Move through a matrix	Grid DP
+Compare two strings	LCS / String DP
+Find increasing subsequence	LIS
+Split an interval optimally	Interval DP
+Calculate using child nodes	Tree DP
+Find optimal paths in DAG	Graph DP
+Buy, sell, hold, cooldown	State Machine DP
+Select subsets using small N	Bitmask DP
+Count numbers with digit constraints	Digit DP
+Normal DP is too slow	DP Optimization
+
+Important: These are clues, not rigid rules. A problem may combine multiple patterns.
+
+4. The Most Important Part: How to Derive DP State and Recurrence
+
+This is the skill that matters most in interviews.
+
+Do not start by writing code.
+
+Follow this process.
+
+Step 1: Understand what the problem asks
+
+Is it asking for:
+
+Maximum?
+Minimum?
+Number of ways?
+Whether something is possible?
+Longest or shortest sequence?
+Step 2: Identify the changing information
+
+Ask:
+
+What information changes when I solve a smaller version of this problem?
+
+Examples:
+
+Problem	Changing information
+Knapsack	Number of items and remaining capacity
+Subset Sum	Number of elements and remaining target
+LCS	Position in string A and position in string B
+Grid DP	Row and column
+LIS	Current index and previous selected index
+Tree DP	Current node and decision state
+
+These changing parameters often become your DP state.
+
+Step 3: Define the state in plain English
+
+For example:
+
+cpp
+dp[i][w]
+
+
+Means:
+
+Maximum value obtainable using the first i items with capacity w.
+
+If you cannot explain your state in one sentence, do not start coding yet.
+
+Step 4: Identify the choices
+
+Ask:
+
+What decisions can I make at this state?
+
+Examples:
+
+Knapsack:
+
+Include.
+Exclude.
+
+Grid:
+
+Move right.
+Move down.
+
+LCS:
+
+Characters match.
+Characters don't match.
+
+Stock:
+
+Buy.
+Sell.
+Hold.
+Step 5: Derive the recurrence
+
+Translate each choice into a smaller state.
+
+For 0/1 Knapsack:
+
+cpp
+include = value[i] + dp[i-1][w-weight[i]];
+
+exclude = dp[i-1][w];
+
+answer = max(include, exclude);
+
+
+For Subset Sum:
+
+cpp
+include = dp[i-1][sum-arr[i]];
+
+exclude = dp[i-1][sum];
+
+answer = include || exclude;
+
+Step 6: Establish base cases
+
+Ask:
+
+What if no elements remain?
+What if the target becomes zero?
+What if the input is empty?
+What if we reach the destination?
+Step 7: Implement recursion first
+
+Make sure the recurrence is correct.
+
+Step 8: Add memoization
+
+Store answers to avoid repeated calculations.
+
+Step 9: Convert to tabulation
+
+Identify which smaller states must be calculated first.
+
+Step 10: Optimize space
+
+Only do this after understanding the complete DP table.
+
+5. Recommended Interview Preparation Order
+
+Do not study all 15 patterns simultaneously.
+
+Follow this sequence.
+
+Beginner
+Fibonacci
+Climbing Stairs
+House Robber
+0/1 Knapsack
+Subset Sum
+Equal Sum Partition
+Count Subsets
+Unbounded Knapsack
+Coin Change
+Rod Cutting
+Intermediate
+Unique Paths
+Minimum Path Sum
+Longest Common Subsequence
+Longest Common Substring
+Longest Increasing Subsequence
+Edit Distance
+Longest Palindromic Subsequence
+Target Sum
+Minimum Subset Sum Difference
+Stock Buy and Sell
+Advanced
+Matrix Chain Multiplication
+Palindrome Partitioning
+Burst Balloons
+DP on Trees
+Longest Path in DAG
+Bitmask DP
+Digit DP
+Probability DP
+DP Optimization
+6. Important Interview Advice
+
+You do not need to memorize hundreds of DP solutions.
+
+Focus on mastering:
+
+State definition.
+Recurrence derivation.
+Base cases.
+Recursion tree.
+Memoization.
+Tabulation.
+Space optimization.
+
+A person who understands 15 fundamental patterns can often approach many unfamiliar DP problems systematically.
+
+However, recognizing a pattern does not automatically solve a problem. You still need to derive and validate its state transitions.
+
+7. Your DP Learning Checklist
+
+For every problem, verify whether you can:
+
+Explain the problem in simple language.
+Identify the DP pattern.
+Define the state.
+Explain what each state represents.
+Identify all possible choices.
+Derive the recurrence.
+Establish base conditions.
+Draw the recursion tree.
+Implement recursive C++ code.
+Add memoization.
+Convert to tabulation.
+Explain time and space complexity.
+Test edge cases.
+Solve it again without looking at the solution.
+
+Final principle: Learn to derive DP, not memorize DP.
+
+----------------------------
 1. Singleton Pattern
 
 Ensures only one instance of a class exists.
