@@ -1,6 +1,23 @@
 # Nihongo
 For JapanesePreparation
+ Advanced Templates and Generic Programming
 
+Since you've already started implementing a generic linked list, this is a natural next step.
+
+    Function templates
+    Class templates
+    Template specialization
+    Partial specialization
+    Variadic templates
+    Template argument deduction
+    SFINAE
+    Type traits
+    Concepts (C++20)
+    constexpr templates
+    Fold expressions
+    CRTP
+
+    
 Dynamic Programming (DP) — Complete Study Handbook
 1. Introduction: What is Dynamic Programming?
 
