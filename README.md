@@ -1,5 +1,7 @@
 # Nihongo
 For JapanesePreparation
+[Uploading CPP_UTCG_Pipeline_IMPROVED.drawio…]()
+
  Advanced Templates and Generic Programming
 
 Since you've already started implementing a generic linked list, this is a natural next step.
