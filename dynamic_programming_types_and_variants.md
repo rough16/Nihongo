@@ -1,3 +1,15 @@
+Tree Operation:-
+| Problem | Combination |
+|---|---|
+| Height | `max(left, right) + 1` |
+| Count nodes | `left + right + 1` |
+| Sum nodes | `node->data + left + right` |
+| Find maximum | `max(node->data, max(left, right))` |
+| Find minimum | `min(node->data, min(left, right))` |
+| Search | `left || right` |
+
+
+
 # Dynamic Programming (DP): Types, Patterns, and Variants in C++
 
 A practical reference covering the major dynamic-programming families,
