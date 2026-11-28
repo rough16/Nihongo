@@ -6,7 +6,7 @@ Tree Operation:-
 | Sum nodes | `node->data + left + right` |
 | Find maximum | `max(node->data, max(left, right))` |
 | Find minimum | `min(node->data, min(left, right))` |
-| Search | `left || right` |
+| Search | `left or right` |
 
 
 
